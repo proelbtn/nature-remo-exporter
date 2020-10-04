@@ -178,8 +178,16 @@ func setup() (*Config, error) {
 		return nil, err
 	}
 
+	if cfg.NatureRemo.ApiKey == "" {
+		return nil, errors.Errorf("nature_remo.api_key isn't valid")
+	}
+
 	if cfg.NatureRemo.BaseUrl == "" {
 		cfg.NatureRemo.BaseUrl = "api.nature.global"
+	}
+
+	if cfg.PromHttp.ListenAddress == "" {
+		cfg.PromHttp.ListenAddress = ":9278"
 	}
 
 	return cfg, nil
