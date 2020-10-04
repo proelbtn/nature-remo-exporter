@@ -122,9 +122,9 @@ func updateMetrics(config *Config) error {
 
 	for _, device := range devices {
 		labels := getLabel(device)
-		temperature.With(labels).Set(device.NewestEvents.Temperature.Val)
+		temperature.With(labels).Set(device.NewestEvents.Temperature.Val + device.TemperatureOffset)
 		temperatureOffset.With(labels).Set(device.TemperatureOffset)
-		humidity.With(labels).Set(device.NewestEvents.Humidity.Val)
+		humidity.With(labels).Set(device.NewestEvents.Humidity.Val + device.HumidityOffset)
 		humidityOffset.With(labels).Set(device.TemperatureOffset)
 		illumination.With(labels).Set(device.NewestEvents.Illumination.Val)
 
