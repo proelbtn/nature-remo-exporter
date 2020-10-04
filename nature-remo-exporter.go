@@ -141,6 +141,7 @@ func poll(config *Config, cancel chan struct{}) {
 				}
 			})()
 		case <-cancel:
+			ticker.Stop()
 			break
 		}
 	}
