@@ -79,6 +79,7 @@ type PromHttpConfig struct {
 
 type Config struct {
 	NatureRemo NatureRemoConfig `yaml:"nature_remo"`
+	PromHttp PromHttpConfig `yaml:"promhttp"`
 }
 
 func getLabel(device Device) prometheus.Labels {
@@ -166,7 +167,15 @@ func setup() (*Config, error) {
 
 	cfg := &Config{}
 	err = yaml.NewDecoder(file).Decode(cfg)
-	return cfg, err
+	if err != nil {
+		return nil, err
+	}
+
+	if cfg.NatureRemo.BaseUrl == "" {
+		cfg.NatureRemo.BaseUrl = "api.nature.global"
+	}
+
+	return cfg, nil
 }
 
 func main() {
@@ -180,7 +189,7 @@ func main() {
 	go poll(cfg, cancel)
 
 	http.Handle("/metrics", promhttp.Handler())
-	err = http.ListenAndServe(":9278", nil)
+	err = http.ListenAndServe(cfg.PromHttp.ListenAddress, nil)
 	if err != nil {
 		cmd.Errorf("error while serving promhttp: %s", err)
 		os.Exit(1)
