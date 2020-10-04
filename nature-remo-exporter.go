@@ -134,14 +134,16 @@ func updateMetrics(config *Config) error {
 func poll(config *Config, cancel chan struct{}) {
 	ticker := time.NewTicker(15 * time.Second)
 	for {
+		go (func() {
+			err := updateMetrics(config)
+			if err != nil {
+				cmd.Errorf("error while updating metrics: %s", err)
+			}
+		})()
+
 		select {
 		case <-ticker.C:
-			go (func() {
-				err := updateMetrics(config)
-				if err != nil {
-					cmd.Errorf("error while updating metrics: %s", err)
-				}
-			})()
+			continue
 		case <-cancel:
 			ticker.Stop()
 			break
