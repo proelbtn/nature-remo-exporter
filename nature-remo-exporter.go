@@ -16,6 +16,8 @@ import (
 )
 
 var (
+	version string
+
 	cmd = kingpin.New("nature-remo-exporter", "Nature Remo Exporter")
 
 	tags = []string{"id", "name", "serial_number"}
@@ -69,6 +71,10 @@ type Device struct {
 type NatureRemoConfig struct {
 	ApiKey string `yaml:"api_key"`
 	BaseUrl string `yaml:"base_url"`
+}
+
+type PromHttpConfig struct {
+	ListenAddress string `yaml:"listen_address"`
 }
 
 type Config struct {
@@ -144,6 +150,7 @@ func setup() (*Config, error) {
 	var config string
 
 	cmd.Author("proelbtn")
+	cmd.Version(version)
 	cmd.Flag("config", "Configuration file path").
 		Default("config.yml").StringVar(&config)
 
