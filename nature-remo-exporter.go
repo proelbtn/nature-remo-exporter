@@ -17,6 +17,8 @@ import (
 
 var (
 	version string
+	commit string
+	date string
 
 	cmd = kingpin.New("nature-remo-exporter", "Nature Remo Exporter")
 

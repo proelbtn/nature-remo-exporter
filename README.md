@@ -2,6 +2,10 @@
 
 Exporter for Nature Remo
 
+## Dependencies
+
+- goreleaser
+
 ## Configuration
 
 ```yaml
