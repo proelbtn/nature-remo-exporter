@@ -89,7 +89,6 @@ func getLabel(device Device) prometheus.Labels {
 		"id": device.ID,
 		"name": device.Name,
 		"serial_number": device.SerialNumber,
-		"firmware_version": device.FirmwareVersion,
 		"mac_address": device.MacAddress,
 	}
 }
