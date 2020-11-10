@@ -22,7 +22,7 @@ var (
 
 	cmd = kingpin.New("nature-remo-exporter", "Nature Remo Exporter")
 
-	tags = []string{"id", "name", "serial_number", "firmware_version", "mac_address"}
+	tags = []string{"id", "name", "serial_number", "mac_address"}
 	temperature = promauto.NewGaugeVec(prometheus.GaugeOpts{
 		Name: "nature_remo_temperature",
 		Help: "Temperature",
